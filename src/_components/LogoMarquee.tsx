@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-// Example logos array
 const logos = [
   "/raptorLogo.png",
   "/elementaLogo.png",
@@ -12,38 +11,40 @@ const logos = [
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 18 },
+  initial: { opacity: 0, y: 12 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.3 },
-  transition: { duration: 0.6, delay },
+  transition: { duration: 0.5, delay },
 });
 
 export default function LogoMarquee() {
-  const repeatedLogos = logos.concat(logos).concat(logos); // repeat 3x for seamlessness
+  const repeatedLogos = [...logos, ...logos, ...logos];
 
   return (
-    <section className="py-12 border-y border-navy/10 bg-gray-800 relative overflow-hidden mt-4">
+    <section className="py-12 bg-gray-50 border-y border-gray-200 relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 text-center">
-        <motion.h2 {...fadeUp(0)} className="text-2xl md:text-3xl font-bold text-white">
-          Some of the teams we’ve worked with
-        </motion.h2>
-        <motion.p {...fadeUp(0.05)} className="mt-2 text-white/70 text-sm md:text-base">
-          Trusted by startups and growing companies across industries
+        <motion.p {...fadeUp(0)} className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">
+          Some of the teams we&apos;ve worked with
         </motion.p>
 
-        {/* Marquee wrapper */}
-        <div className="mt-8 relative flex overflow-hidden">
+        {/* Marquee */}
+        <div className="relative flex overflow-hidden">
+          {/* Edge fades */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
+
           <div className="flex animate-marquee">
             {repeatedLogos.map((src, i) => (
               <div
                 key={i}
-                className="shrink-0 h-16 w-32 relative flex items-center justify-center mx-6"
+                className="shrink-0 h-14 w-36 relative flex items-center justify-center mx-8
+                           grayscale opacity-40 hover:grayscale-0 hover:opacity-80 transition-all duration-400"
               >
                 <Image
                   src={src}
                   alt={`client-logo-${i}`}
                   width={120}
-                  height={60}
+                  height={52}
                   className="object-contain"
                 />
               </div>
@@ -51,22 +52,6 @@ export default function LogoMarquee() {
           </div>
         </div>
       </div>
-
-      {/* Animation */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-        .animate-marquee {
-          display: flex;
-          animation: marquee 25s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }

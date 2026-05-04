@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Atomuz Development — Custom Software & Micro-SaaS",
+  other: {
+    "facebook-domain-verification": "422mjk0h9rpirpgbnjdaq7qpn1wgft",
+  },
   description:
     "Atomuz Development builds custom software, mobile apps, web apps, and micro-SaaS starting at $5k. Clear milestones, fast delivery, and expert engineering.",
   keywords: [

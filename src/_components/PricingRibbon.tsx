@@ -1,104 +1,136 @@
-// src/_components/PricingSection.tsx
 "use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight, Rocket, CheckCircle2 } from "lucide-react";
 
+const features = [
+  "MVP ready in 6–8 weeks",
+  "Authentication & database included",
+  "Transparent milestones & weekly demos",
+  "Secure CI/CD pipelines baked in",
+  "Senior engineering team",
+  "Fixed quote with no hidden fees",
+];
+
 export default function PricingSection() {
   return (
     <section
       id="saas"
-      className="relative py-20 md:py-28 bg-gradient-to-b from-white to-gray-50 border-y border-navy/10 overflow-hidden"
+      className="relative py-20 md:py-28 bg-[#060d1a] overflow-hidden"
     >
+      {/* Background glow orbs */}
+      <div
+        aria-hidden
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-10 blur-[140px] -z-10 pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(0,230,98,0.6) 0%, transparent 65%)" }}
+      />
+      <div
+        aria-hidden
+        className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10 blur-[100px] -z-10 pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(0,80,200,0.6) 0%, transparent 65%)" }}
+      />
+
+      {/* Subtle grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-grid bg-grid opacity-50"
+      />
+
       <div className="mx-auto max-w-5xl px-6 text-center relative z-10">
         {/* Animated Rocket */}
         <motion.div
-          initial={{ y: 0 }}
           animate={{ y: [-6, 6, -6] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex justify-center mb-6"
         >
-          <div className="p-4 rounded-full bg-neon/10 text-neon">
-            <Rocket size={36} />
-          </div>
+          <motion.div
+            animate={{ boxShadow: ["0 0 15px rgba(0,230,98,0.2)", "0 0 35px rgba(0,230,98,0.5)", "0 0 15px rgba(0,230,98,0.2)"] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            className="p-4 rounded-full bg-neon/10 border border-neon/25 text-neon"
+          >
+            <Rocket size={34} />
+          </motion.div>
         </motion.div>
 
-        {/* Title + subtitle */}
+        {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-5xl font-extrabold text-navy"
+          className="text-3xl md:text-5xl font-extrabold text-white"
         >
-          Launch your <span className="text-neon">MVP</span> with confidence
+          Launch your{" "}
+          <span
+            className="text-neon"
+            style={{ textShadow: "0 0 30px rgba(0,230,98,0.4)" }}
+          >
+            MVP
+          </span>{" "}
+          with confidence
         </motion.h2>
+
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-4 text-lg md:text-xl text-navy/70 max-w-2xl mx-auto"
+          className="mt-4 text-lg md:text-xl text-white/65 max-w-2xl mx-auto leading-relaxed"
         >
-          Micro-SaaS starting at <span className="text-neon font-semibold">$5k</span>. 
-          Authentication, database, and deployment included. Delivered in weeks, not months.
+          Micro-SaaS starting at{" "}
+          <span className="text-neon font-bold" style={{ textShadow: "0 0 20px rgba(0,230,98,0.35)" }}>
+            $5k
+          </span>
+          . Authentication, database, and deployment included. Delivered in weeks, not months.
         </motion.p>
 
-        {/* Feature list */}
-        <motion.ul
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+        {/* Glass card */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-8 grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto text-navy/80"
+          transition={{ duration: 0.65, delay: 0.15 }}
+          className="mt-10 mx-auto max-w-2xl rounded-2xl border border-neon/20 bg-navy/60 backdrop-blur-sm p-8"
+          style={{ boxShadow: "0 0 40px rgba(0,230,98,0.08), 0 16px 48px rgba(0,0,0,0.5)" }}
         >
-          {[
-            "MVP ready in 6–8 weeks",
-            "Authentication & database included",
-            "Transparent milestones & weekly demos",
-            "Secure CI/CD pipelines baked in",
-            "Senior engineering team, no outsourcing",
-            "Fixed quote with no hidden fees",
-          ].map((f) => (
-            <li key={f} className="flex items-center gap-2">
-              <CheckCircle2 size={18} className="text-neon" />
-              <span>{f}</span>
-            </li>
-          ))}
-        </motion.ul>
+          <ul className="grid sm:grid-cols-2 gap-3.5 text-left">
+            {features.map((f, i) => (
+              <motion.li
+                key={f}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.2 + i * 0.06 }}
+                className="flex items-center gap-2.5 text-white/75 text-sm"
+              >
+                <CheckCircle2 size={16} className="text-neon flex-shrink-0" />
+                <span>{f}</span>
+              </motion.li>
+            ))}
+          </ul>
+        </motion.div>
 
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-10"
         >
-          <a
+          <motion.a
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-navy text-white text-lg font-semibold 
-                       hover:shadow-[0_0_25px_rgba(57,255,20,0.6)] hover:scale-105 transition-transform duration-300"
+            whileHover={{ scale: 1.04, boxShadow: "0 0 35px rgba(0,230,98,0.5)" }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-neon text-[#060d1a] text-lg font-bold transition-all duration-300"
           >
             Get your fixed quote <ArrowRight size={20} />
-          </a>
-          <p className="mt-4 text-sm text-navy/60">
+          </motion.a>
+          <p className="mt-4 text-sm text-white/40">
             Free consultation • Fast response • Clear milestones
           </p>
         </motion.div>
       </div>
-
-      {/* Background accent shapes */}
-      <div
-        aria-hidden
-        className="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[800px] 
-                   bg-[radial-gradient(circle,rgba(57,255,20,0.15),transparent_70%)] blur-3xl -z-10"
-      />
-      <div
-        aria-hidden
-        className="absolute bottom-0 right-0 w-[400px] h-[400px] 
-                   bg-[radial-gradient(circle,rgba(0,40,120,0.15),transparent_70%)] blur-2xl -z-10"
-      />
     </section>
   );
 }

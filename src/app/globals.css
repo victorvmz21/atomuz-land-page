@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;      /* light background */
-  --foreground: #0b0b0f;      /* dark text */
-  --navy: #0B1B3A;            /* custom navy */
-  --neon-green: #39FF14;      /* custom neon green */
+  --background: #060d1a;
+  --foreground: #e8edf5;
+  --navy: #0B1B3A;
+  --neon-green: #00e662;
 }
 
 @theme inline {
@@ -16,21 +16,39 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;  
-     --foreground: #0b0b0f;   /* light text */
-    --navy: #0B1B3A;
-    --neon-green: #39FF14;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans, Arial, Helvetica, sans-serif);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(0, 230, 98, 0.25);
+  color: #e8edf5;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #060d1a; }
+::-webkit-scrollbar-thumb { background: #0B1B3A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00e662; }
+
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-33.333%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+@keyframes orb1 {
+  0%, 100% { transform: translate(0px,  0px) scale(1);    }
+  33%       { transform: translate(30px,-20px) scale(1.05); }
+  66%       { transform: translate(-20px,20px) scale(0.95);}
+}
+@keyframes orb2 {
+  0%, 100% { transform: translate(0px,  0px) scale(1);    }
+  33%       { transform: translate(-25px,15px) scale(0.95); }
+  66%       { transform: translate(20px,-25px) scale(1.05);}
 }
